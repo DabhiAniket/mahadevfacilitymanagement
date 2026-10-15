@@ -37,6 +37,13 @@ export type Visual = {
 export const SOURCE_PAGE = "https://ishwargehi.com/project/oscar-sky-park/";
 const UPLOADS = "https://ishwargehi.com/wp-content/uploads/2025/07";
 
+// Permission as confirmed in writing by the site owner. Replace `by` with the
+// rights holder's name, and fill in `credit` below, once known.
+const GRANT = {
+  by: "Confirmed by the site owner (Aniket) in writing; rights holder to be named",
+  date: "2026-10-15",
+};
+
 // All six are architectural visualisations (renders), not photographs. EXIF
 // on five of them names "NIRMIT" as artist; the source page is
 // "Copyright © 2025 Ishwargehi". See docs/assets.md.
@@ -51,9 +58,9 @@ export const visuals: Visual[] = [
     widths: [1280, 2000],
     alt: "Oscar Sky Park, Rajkot: architectural visualisation of the residential towers seen from the street, with the Oscar Sky Park sign at the entrance",
     credit: null,
-    permissionStatus: "pending",
-    permissionGrantedBy: null,
-    permissionDate: null,
+    permissionStatus: "granted",
+    permissionGrantedBy: GRANT.by,
+    permissionDate: GRANT.date,
     focal: { wide: { x: 0.6, y: 0.45 }, tall: { x: 0.68, y: 0.5 } },
   },
   {
@@ -66,9 +73,9 @@ export const visuals: Visual[] = [
     widths: [1280, 1840],
     alt: "Oscar Sky Park, Rajkot: architectural visualisation of the street elevation, with the towers linked by a curved garden roof and the signed entrance in the boundary wall",
     credit: null,
-    permissionStatus: "pending",
-    permissionGrantedBy: null,
-    permissionDate: null,
+    permissionStatus: "granted",
+    permissionGrantedBy: GRANT.by,
+    permissionDate: GRANT.date,
     focal: { wide: { x: 0.5, y: 0.6 }, tall: { x: 0.5, y: 0.7 } },
   },
   {
@@ -81,9 +88,9 @@ export const visuals: Visual[] = [
     widths: [1280, 1840],
     alt: "Oscar Sky Park, Rajkot: architectural visualisation of the landscaped central courtyard between the towers",
     credit: null,
-    permissionStatus: "pending",
-    permissionGrantedBy: null,
-    permissionDate: null,
+    permissionStatus: "granted",
+    permissionGrantedBy: GRANT.by,
+    permissionDate: GRANT.date,
     focal: { wide: { x: 0.5, y: 0.6 }, tall: { x: 0.5, y: 0.62 } },
   },
   {
@@ -96,9 +103,9 @@ export const visuals: Visual[] = [
     widths: [1280, 1841],
     alt: "Oscar Sky Park, Rajkot: architectural visualisation of the planted rooftop garden above the towers",
     credit: null,
-    permissionStatus: "pending",
-    permissionGrantedBy: null,
-    permissionDate: null,
+    permissionStatus: "granted",
+    permissionGrantedBy: GRANT.by,
+    permissionDate: GRANT.date,
     focal: { wide: { x: 0.5, y: 0.55 }, tall: { x: 0.55, y: 0.58 } },
   },
   {
@@ -111,9 +118,9 @@ export const visuals: Visual[] = [
     widths: [1280, 1410],
     alt: "Oscar Sky Park, Rajkot: architectural visualisation of the swimming pool and deck in the courtyard",
     credit: null,
-    permissionStatus: "pending",
-    permissionGrantedBy: null,
-    permissionDate: null,
+    permissionStatus: "granted",
+    permissionGrantedBy: GRANT.by,
+    permissionDate: GRANT.date,
     focal: { wide: { x: 0.5, y: 0.62 }, tall: { x: 0.5, y: 0.6 } },
   },
   {
@@ -126,9 +133,9 @@ export const visuals: Visual[] = [
     widths: [1280, 1411],
     alt: "Oscar Sky Park, Rajkot: architectural visualisation of the courtyard and pool at dusk, with terraces lit",
     credit: null,
-    permissionStatus: "pending",
-    permissionGrantedBy: null,
-    permissionDate: null,
+    permissionStatus: "granted",
+    permissionGrantedBy: GRANT.by,
+    permissionDate: GRANT.date,
     focal: { wide: { x: 0.5, y: 0.55 }, tall: { x: 0.5, y: 0.6 } },
   },
 ];

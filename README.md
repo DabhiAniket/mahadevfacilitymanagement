@@ -1,12 +1,12 @@
 # Mahadev Facility Management website
 
-> **LAUNCH BLOCKER: image permission.** The scroll journey uses six architectural visualisations of Oscar Sky Park from ishwargehi.com. None has usage permission yet (`permissionStatus: "pending"` in `src/data/visuals.ts`). Do not deploy until permission is confirmed in writing and recorded; see `docs/assets.md`. `npm run build` prints this warning on every build until then.
+> **Image permission.** The scroll journey uses six architectural visualisations of Oscar Sky Park from ishwargehi.com. Permission was confirmed in writing by the site owner on 2026-10-15; the rights holder's name and the credit wording are still to be added in `src/data/visuals.ts` and `docs/assets.md`.
 
 Rebuild of www.mahadevfacilitymanagement.com (previously on Wix) as a Next.js site with a scroll-driven WebGL image journey through Oscar Sky Park, one of the properties the company manages, modelled on the reference recording described in `docs/reference-analysis.md`.
 
 ## Preview
 
-Screenshots of the production build. The scroll journey at the top of the home page is not pictured: its Oscar Sky Park images do not yet have usage permission, so they are kept out of this public repository.
+Screenshots of the production build. The scroll journey at the top of the home page (Oscar Sky Park) is not pictured yet.
 
 **Desktop (1440 px)**
 
@@ -35,7 +35,7 @@ npm run lint
 npm run visuals    # regenerate AVIF/WebP journey images from assets/source
 ```
 
-The journey images are not in git (`assets/source/` and `public/visuals/` are ignored while permission is pending). A fresh clone needs the originals placed in `assets/source/oscar-sky-park/` and `npm run visuals` run once, otherwise the journey shows no images.
+The optimised journey images in `public/visuals/` are committed, so a fresh clone and every Vercel build serve them as they are. The original downloads in `assets/source/` are not in git; `npm run visuals` (only needed to change sizes or quality) requires them there.
 
 Requires Node 20 or newer. Set `NEXT_PUBLIC_SITE_URL` to the final origin (default `https://www.mahadevfacilitymanagement.com`); it is used for canonical URLs, Open Graph, the sitemap and structured data.
 
