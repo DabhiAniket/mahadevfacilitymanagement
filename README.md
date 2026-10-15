@@ -2,7 +2,27 @@
 
 > **LAUNCH BLOCKER: image permission.** The scroll journey uses six architectural visualisations of Oscar Sky Park from ishwargehi.com. None has usage permission yet (`permissionStatus: "pending"` in `src/data/visuals.ts`). Do not deploy until permission is confirmed in writing and recorded; see `docs/assets.md`. `npm run build` prints this warning on every build until then.
 
-Rebuild of www.mahadevfacilitymanagement.com (previously on Wix) as a Next.js site with one scroll-driven 3D scene, modelled on the reference recording described in `docs/reference-analysis.md`.
+Rebuild of www.mahadevfacilitymanagement.com (previously on Wix) as a Next.js site with a scroll-driven WebGL image journey through Oscar Sky Park, one of the properties the company manages, modelled on the reference recording described in `docs/reference-analysis.md`.
+
+## Preview
+
+Screenshots of the production build. The scroll journey at the top of the home page is not pictured: its Oscar Sky Park images do not yet have usage permission, so they are kept out of this public repository.
+
+**Desktop (1440 px)**
+
+| About | Managed Properties |
+| --- | --- |
+| ![About section](docs/screenshots/desktop-about.jpg) | ![Managed Properties section](docs/screenshots/desktop-properties.jpg) |
+| **Why Choose Us** | **Contact and footer** |
+| ![Why Choose Us section](docs/screenshots/desktop-why-us.jpg) | ![Contact section and footer](docs/screenshots/desktop-contact.jpg) |
+| **Menu** | **Privacy Policy (draft)** |
+| ![Full-screen menu](docs/screenshots/desktop-menu.jpg) | ![Privacy Policy page](docs/screenshots/desktop-privacy-policy.jpg) |
+
+**Mobile (390 px)**: About, Managed Properties, menu, Contact
+
+![Mobile screens](docs/screenshots/mobile.jpg)
+
+To see the full site, including the scroll journey, run it locally (below).
 
 ## Run
 
@@ -40,9 +60,9 @@ Lenis was considered and left out; see `docs/animation-plan.md`.
 - `src/components/three/PhotoScene.tsx`: the WebGL image layer.
 - `src/components/JourneyCanvas.tsx`: first-frame `<img>`, WebGL hand-over, static fallback.
 - `src/components/JourneyController.tsx`: scroll to camera and text mapping.
-- `src/components/IntroOverlay.tsx`: opening loader and aerial label.
+- `src/components/IntroOverlay.tsx`: loading line shown over the first image.
 - `src/app/privacy-policy`, `terms-and-conditions`, `accessibility-statement`: legal pages (drafts).
-- `docs/`: site inventory, reference analysis, animation plan, design system, launch checklist, live-site screenshots and original logo files.
+- `docs/`: site inventory, audit, image sources and permissions, reference analysis, animation plan, design system, launch checklist, README screenshots (`docs/screenshots/`), old-site screenshots and original logo files.
 
 ## Before launch
 

@@ -255,7 +255,6 @@ body {
   top: 0;
   z-index: 0;
   height: 100svh;
-  margin-bottom: -100svh;
   overflow: hidden;
   background: var(--color-ink);
 }
@@ -460,6 +459,12 @@ body {
 
 .js .journey-spacer--hero {
   height: 100svh;
+}
+
+/* The spacers start under the pinned stage (rather than the stage hanging
+   below its container), so the stage scrolls away when the journey ends. */
+.js .journey-stage + .journey-spacer {
+  margin-top: -100svh;
 }
 
 .js .journey-spacer--beat {
