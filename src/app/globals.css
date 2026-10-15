@@ -1,0 +1,425 @@
+@import "tailwindcss";
+
+/* Brand tokens. Contrast ratios are documented in docs/design-system.md. */
+:root {
+  --color-ink: #17140f; /* warm near-black, from the logo ground */
+  --color-ink-2: #221e17;
+  --color-ivory: #f6f2ea; /* page background */
+  --color-stone: #ece4d6; /* secondary surface */
+  --color-paper: #fffdf9; /* cards */
+  --color-line: #d8cdb9; /* hairlines on light surfaces */
+  --color-line-dark: #3a3328; /* hairlines on ink */
+  --color-muted: #5b5347; /* secondary text on light */
+  --color-muted-on-dark: #bdb3a2; /* secondary text on ink */
+  --color-gold: #c8a060; /* logo gold; decorative on light, text on ink */
+  --color-gold-deep: #7d5e27; /* gold for text on light (AA) */
+  --color-slate: #2a4658; /* complementary accent */
+  --color-focus: #1f5fa8;
+  --color-success: #2e6b3e;
+  --color-error: #a8352a;
+
+  --header-h: 4.5rem;
+}
+
+@theme inline {
+  --color-ink: var(--color-ink);
+  --color-ink-2: var(--color-ink-2);
+  --color-ivory: var(--color-ivory);
+  --color-stone: var(--color-stone);
+  --color-paper: var(--color-paper);
+  --color-line: var(--color-line);
+  --color-line-dark: var(--color-line-dark);
+  --color-muted: var(--color-muted);
+  --color-muted-on-dark: var(--color-muted-on-dark);
+  --color-gold: var(--color-gold);
+  --color-gold-deep: var(--color-gold-deep);
+  --color-slate: var(--color-slate);
+  --color-focus: var(--color-focus);
+  --font-display: var(--font-cormorant), "Times New Roman", serif;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+  --radius-sm: 2px;
+}
+
+html {
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.on-dark :focus-visible {
+  outline-color: var(--color-gold);
+}
+
+/* Component classes live in the components layer so Tailwind utilities
+   (hidden, sr-only, sizing) can override them. */
+@layer components {
+  /* Eyebrow labels echo the tracked "PRIVATE LIMITED" line in the logo. */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-gold-deep);
+  }
+
+  .on-dark .eyebrow {
+    color: var(--color-gold);
+  }
+
+  /* Buttons: square-cornered, never pill-shaped. */
+  .btn {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    border-radius: var(--radius-sm);
+    padding: 0 1.4rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    transition:
+      background-color 180ms ease,
+      color 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .btn-primary {
+    background: var(--color-ink);
+    color: var(--color-ivory);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-slate);
+  }
+
+  .btn-secondary {
+    border: 1px solid var(--color-ink);
+    color: var(--color-ink);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-ink);
+    color: var(--color-ivory);
+  }
+
+  /* Buttons over the 3D stage; without JS they sit on the page background. */
+  .btn-on-stage {
+    background: var(--color-ink);
+    color: var(--color-ivory);
+  }
+
+  .js .btn-on-stage {
+    background: var(--color-ivory);
+    color: var(--color-ink);
+  }
+
+  .js .btn-on-stage:hover {
+    background: var(--color-gold);
+  }
+
+  .btn-ghost-on-stage {
+    border: 1px solid var(--color-ink);
+    color: var(--color-ink);
+  }
+
+  .js .btn-ghost-on-stage {
+    border-color: rgb(246 242 234 / 0.7);
+    color: var(--color-ivory);
+    background: rgb(23 20 15 / 0.25);
+  }
+
+  .js .btn-ghost-on-stage:hover {
+    background: rgb(23 20 15 / 0.5);
+  }
+}
+
+/* Reveal on scroll. Content is visible by default; hiding only happens once
+   JS has confirmed it can reveal it again (html.js), and never with reduced
+   motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    transition:
+      opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Hero entrance after the intro: masked line rise, then blur-fade. */
+  .intro-done .hero-line > span {
+    animation: line-rise 1100ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i, 0) * 120ms);
+  }
+
+  .intro-done .hero-fade {
+    animation: blur-in 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--d, 500ms);
+  }
+}
+
+/* Until the intro finishes, the hero copy and header wait off-stage. */
+.js:not(.intro-done) .hero-line > span {
+  transform: translate3d(0, 105%, 0);
+}
+
+.js:not(.intro-done) .hero-fade,
+.js:not(.intro-done) .site-header {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro-overlay {
+  display: none;
+}
+
+.js:not(.intro-done) .intro-overlay {
+  display: block;
+}
+
+@keyframes line-rise {
+  from {
+    transform: translate3d(0, 105%, 0);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes blur-in {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+
+.hero-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.hero-line > span {
+  display: inline-block;
+}
+
+/* Journey stage. Without JS (no html.js) everything below falls back to a
+   plain document: blocks stack in flow on the page background, spacers and
+   decorations are hidden. */
+.journey-scrim,
+.journey-progress,
+.journey-cue,
+.journey-spacer {
+  display: none;
+}
+
+.stage-block {
+  padding: 5rem 0 2rem;
+}
+
+.stage-copy {
+  max-width: 600px;
+}
+
+.stage-muted {
+  color: var(--color-muted);
+}
+
+.js .journey-stage {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  height: 100svh;
+  margin-bottom: -100svh;
+  overflow: hidden;
+  background: #e9e3d8;
+}
+
+/* Darkens only where text sits: bottom and left edges, plus the header band. */
+.js .journey-scrim {
+  display: block;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, rgb(23 20 15 / 0.5) 0%, rgb(23 20 15 / 0.2) 30%, rgb(23 20 15 / 0) 50%),
+    linear-gradient(to right, rgb(23 20 15 / 0.3) 0%, rgb(23 20 15 / 0) 45%),
+    linear-gradient(to bottom, rgb(23 20 15 / 0.3) 0%, rgb(23 20 15 / 0) 16%);
+}
+
+/* Soft dark panel behind each text block, so the copy keeps WCAG AA
+   contrast whatever the camera shows behind it. */
+.js .stage-backdrop {
+  position: relative;
+  isolation: isolate;
+}
+
+.js .stage-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: -1.5rem -2rem;
+  z-index: -1;
+  border-radius: 3rem;
+  background: rgb(23 20 15 / 0.56);
+  box-shadow: 0 0 90px 56px rgb(23 20 15 / 0.56);
+  pointer-events: none;
+}
+
+.js .journey-blocks {
+  position: absolute;
+  inset: 0;
+}
+
+.js .stage-block {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 0 clamp(4.5rem, 13vh, 8.5rem);
+  color: var(--color-ivory);
+  opacity: 0;
+  will-change: opacity, transform, filter;
+}
+
+.js .stage-block--hero {
+  align-items: center;
+  padding-top: var(--header-h);
+}
+
+@media (max-width: 767px) {
+  .js .stage-block--hero {
+    align-items: flex-end;
+  }
+}
+
+.js .stage-block .eyebrow {
+  color: var(--color-ivory);
+}
+
+.js .stage-muted {
+  color: rgb(246 242 234 / 0.86);
+}
+
+.js .journey-spacer {
+  display: block;
+  height: 150svh;
+}
+
+.js .journey-spacer--hero {
+  height: 100svh;
+}
+
+/* Thin story-progress line at the left edge of the text column. */
+.js .journey-progress {
+  display: block;
+  position: absolute;
+  top: 22vh;
+  bottom: 14vh;
+  left: calc(max((100vw - 1440px) / 2, 0px) + 1.1rem);
+  width: 1px;
+  background: rgb(246 242 234 / 0.25);
+}
+
+.journey-progress > span {
+  display: block;
+  height: 100%;
+  background: var(--color-gold);
+  transform-origin: top;
+  transform: scaleY(0);
+}
+
+@media (max-width: 1023px) {
+  .js .journey-progress {
+    display: none;
+  }
+}
+
+.js .journey-cue {
+  display: block;
+  position: absolute;
+  right: calc(max((100vw - 1440px) / 2, 0px) + 2.5rem);
+  bottom: clamp(1.75rem, 5vh, 3rem);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(246 242 234 / 0.88);
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+@media (max-width: 767px) {
+  .js .journey-cue {
+    display: none;
+  }
+}
+
+/* Long-form legal copy */
+.legal {
+  line-height: 1.75;
+  color: var(--color-ink);
+}
+
+.legal h2 {
+  margin-top: 2.5rem;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.legal p,
+.legal ul {
+  margin-top: 1rem;
+}
+
+.legal ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+.legal li + li {
+  margin-top: 0.4rem;
+}
+
+.legal a {
+  color: var(--color-slate);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
