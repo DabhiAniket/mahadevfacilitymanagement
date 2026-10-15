@@ -2,21 +2,16 @@
 // intro overlay and the 3D scene (R3F). Writes notify subscribers; React only
 // re-renders in components that opt in through the hooks below.
 import { useSyncExternalStore } from "react";
-import { beats } from "@/data/visuals";
-
-// One beat per spacer marked with data-journey-step, in this order. Defined
-// with the images in src/data/visuals.ts.
-export const JOURNEY_STEPS = beats.map((b) => b.id);
 
 /** sessionStorage key: the intro plays once per browser session. */
 export const INTRO_SEEN_KEY = "mfm-intro-seen";
 
-export type IntroStage = "loading" | "done";
+type IntroStage = "loading" | "done";
 
 type Listener = () => void;
 
 const state = {
-  /** Continuous position along the journey, 0..JOURNEY_STEPS.length - 1. */
+  /** Continuous position along the journey (beat index; beats are in src/data/visuals.ts). */
   position: 0,
   /** Nearest whole step. */
   step: 0,

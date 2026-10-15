@@ -26,7 +26,6 @@ Requires Node 20 or newer. Set `NEXT_PUBLIC_SITE_URL` to the final origin (defau
 | Next.js 16 (App Router), TypeScript | Static pages, metadata, image and font optimisation, redirects for old Wix URLs |
 | Tailwind CSS 4 | Styling; brand colours are CSS variables in `src/app/globals.css` |
 | three, @react-three/fiber | The journey's WebGL layer: real images on a full-frame quad with scroll-driven dolly, masked dissolves and a light grade |
-| @react-three/drei | Installed earlier; no longer imported by the site (can be removed) |
 | sharp (dev) | `npm run visuals`: converts the originals to sized AVIF and WebP |
 | gsap, @gsap/react | One ScrollTrigger maps scroll position to the camera journey; `useGSAP` handles cleanup |
 | motion | Mobile menu open and close transition |

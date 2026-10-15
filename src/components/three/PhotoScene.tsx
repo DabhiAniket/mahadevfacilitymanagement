@@ -221,7 +221,7 @@ function PhotoPlane({ textures, heroId }: { textures: Textures; heroId: string }
   return <mesh ref={mesh} geometry={geometry} material={material} frustumCulled={false} />;
 }
 
-export type PhotoSceneProps = {
+type PhotoSceneProps = {
   /** The server-rendered hero <img>; its loaded file is reused as the first texture. */
   heroImage: HTMLImageElement | null;
   onReady: () => void;

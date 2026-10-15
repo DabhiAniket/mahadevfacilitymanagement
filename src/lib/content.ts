@@ -12,7 +12,6 @@ export const LEGAL_PAGES_APPROVED = false;
 
 export const company = {
   name: "Mahadev Facility Management Private Limited", // verbatim
-  shortName: "Mahadev Facility Management",
   phoneDisplay: "8140745807", // verbatim
   phoneHref: "tel:+918140745807",
   email: "info@mahadevfacilitymanagement.com", // verbatim
@@ -30,7 +29,7 @@ export const company = {
 } as const;
 
 export const hero = {
-  title: "Crafting Exceptional Environments for Modern Living", // verbatim
+  // verbatim tagline, split into display lines
   titleLines: ["Crafting Exceptional", "Environments for", "Modern Living"],
   subline: "Elevating Residential Living and Working Spaces", // verbatim
   cta: "Explore Our Services", // verbatim

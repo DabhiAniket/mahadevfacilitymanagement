@@ -28,11 +28,11 @@
 | `pool` | https://ishwargehi.com/wp-content/uploads/2025/07/5-24.jpg | 1410 x 1410 | `5-24.jpg` | `pool-{1280,1410}.{avif,webp}` | Swimming pool | NIRMIT | **pending** (granted by: , date: ) |
 | `courtyard-dusk` | https://ishwargehi.com/wp-content/uploads/2025/07/2-25.jpg | 1411 x 1091 | `2-25.jpg` | `courtyard-dusk-{1280,1411}.{avif,webp}` | Backdrop for the six services | NIRMIT | **pending** (granted by: , date: ) |
 
-### Downloaded but not used
+### Rejected
 
 | Source URL | Original size | Reason |
 | --- | --- | --- |
-| https://ishwargehi.com/wp-content/uploads/2025/07/3-25.jpg | 796 x 478 | Too small for a full-screen frame (would be upscaled 2x or more) |
+| https://ishwargehi.com/wp-content/uploads/2025/07/3-25.jpg | 796 x 478 | Too small for a full-screen frame (would be upscaled 2x or more). Downloaded for review, then deleted. |
 
 ### Not found
 

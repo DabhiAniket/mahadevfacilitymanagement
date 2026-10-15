@@ -6,10 +6,10 @@
 // permission check (scripts/check-visual-permissions.mjs) imports this file
 // directly with Node.
 
-export type PermissionStatus = "pending" | "granted";
+type PermissionStatus = "pending" | "granted";
 
 /** Crop focal point as fractions of the image (0..1), like object-position. */
-export type Focal = { x: number; y: number };
+type Focal = { x: number; y: number };
 
 export type Visual = {
   id: string;
@@ -136,7 +136,7 @@ export const visuals: Visual[] = [
 /** Camera framing for one end of a beat: zoom (1 = cover fit) and focal point offset. */
 export type Frame = { zoom: number; dx: number; dy: number };
 
-export type Beat = {
+type Beat = {
   /** Spacer id; also the in-page anchor. */
   id: string;
   visual: Visual["id"];
@@ -194,5 +194,3 @@ export function visualById(id: string): Visual {
 export function srcFor(v: Visual, width: number, format: "avif" | "webp") {
   return `${v.file}-${width}.${format}`;
 }
-
-export const pendingVisuals = () => visuals.filter((v) => v.permissionStatus !== "granted");

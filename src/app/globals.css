@@ -117,15 +117,6 @@ body {
     background: var(--color-slate);
   }
 
-  .btn-secondary {
-    border: 1px solid var(--color-ink);
-    color: var(--color-ink);
-  }
-
-  .btn-secondary:hover {
-    background: var(--color-ink);
-    color: var(--color-ivory);
-  }
 
   /* Buttons over the 3D stage; without JS they sit on the page background. */
   .btn-on-stage {

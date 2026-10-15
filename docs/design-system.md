@@ -68,9 +68,8 @@ Every text pairing in use passes AA (4.5:1). axe-core reported no colour-contras
 
 Generated from the original JPEG (`docs/source-assets/`) without redrawing:
 
-- `public/brand/logo-on-dark.(png|webp)`: original colours, transparent background.
+- `public/brand/logo-on-dark.webp`: original colours, transparent background.
 - `public/brand/logo-on-light.(png|webp)`: same, with only the white lettering recoloured to ink. Gold is unchanged.
-- `public/brand/shield.png`: shield mark only.
 - `src/app/icon.png`, `apple-icon.png`, `favicon.ico`: shield on black, matching the original.
 - `src/app/opengraph-image.png`: banner logo on black, 1200 x 630.
 
