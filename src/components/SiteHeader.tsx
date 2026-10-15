@@ -65,7 +65,7 @@ export function SiteHeader({ onHome = false }: Props) {
           ? "on-dark border-line-dark bg-ink"
           : light
             ? "border-transparent bg-gradient-to-b from-ink/45 to-transparent"
-            : "border-line bg-ivory/95 backdrop-blur-sm"
+            : "border-line bg-ivory"
       }`}
     >
       <div className="mx-auto grid h-[var(--header-h)] max-w-[1440px] grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 sm:px-6 lg:px-10">
@@ -77,7 +77,7 @@ export function SiteHeader({ onHome = false }: Props) {
               open
                 ? "border border-line-dark text-ivory"
                 : light
-                  ? "bg-ink/60 text-ivory backdrop-blur-sm hover:bg-ink/75"
+                  ? "bg-ink/75 text-ivory hover:bg-ink"
                   : "border border-ink/20 text-ink hover:border-ink"
             }`}
             aria-expanded={open}

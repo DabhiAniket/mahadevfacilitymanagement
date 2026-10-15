@@ -6,10 +6,13 @@ import { JourneyController } from "@/components/JourneyController";
 import { RevealObserver } from "@/components/RevealObserver";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { beats, PROPERTY_NAME, PROPERTY_PLACE, visualById } from "@/data/visuals";
 import { about, company, contact, hero, properties, services, whyChooseUs } from "@/lib/content";
 
 const container = "mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-10";
 const pad2 = (n: number) => String(n).padStart(2, "0");
+// Visual-only beats between the hero and the services (Oscar Sky Park).
+const propertyBeats = beats.filter((b) => b.caption !== null);
 
 export default function Home() {
   return (
@@ -18,8 +21,9 @@ export default function Home() {
       <IntroOverlay />
       <main id="main">
         <JourneyController>
-          {/* Pinned stage: the 3D view with the hero and service copy laid over
-              it. Each block fades in while its spacer below is in view. */}
+          {/* Pinned stage: images of Oscar Sky Park with the hero, property and
+              service copy laid over them. Each block fades in while its spacer
+              below is in view. */}
           <div className="journey-stage">
             <JourneyCanvas />
             <div className="journey-scrim" aria-hidden="true" />
@@ -65,6 +69,27 @@ export default function Home() {
                 </div>
               </section>
 
+              {propertyBeats.map((beat, i) => {
+                const Title = i === 0 ? "h2" : "p";
+                return (
+                  <section key={beat.id} data-step-text aria-label={`${PROPERTY_NAME}: ${beat.caption}`} className="stage-block stage-block--caption">
+                    <div className={container}>
+                      <div className="stage-copy stage-backdrop">
+                        <p className="eyebrow">Managed property · {PROPERTY_PLACE}</p>
+                        <Title
+                          className="mt-4 font-display text-[clamp(2.2rem,4vw,3.6rem)] leading-[1.02] font-medium"
+                          aria-hidden={i === 0 ? undefined : true}
+                        >
+                          {PROPERTY_NAME}
+                        </Title>
+                        <p className="mt-2 text-lg font-semibold">{beat.caption}</p>
+                        <p className="sr-only">{visualById(beat.visual).alt}</p>
+                      </div>
+                    </div>
+                  </section>
+                );
+              })}
+
               <h2 className="sr-only">Our Services</h2>
               {services.map((service, i) => (
                 <article
@@ -105,7 +130,10 @@ export default function Home() {
           </div>
 
           {/* Scroll length and anchors for each step of the journey. */}
-          <div id="top" data-journey-step="hero" className="journey-spacer journey-spacer--hero" />
+          <div id="top" data-journey-step="top" className="journey-spacer journey-spacer--hero" />
+          {propertyBeats.map((beat) => (
+            <div key={beat.id} id={beat.id} data-journey-step={beat.id} className="journey-spacer journey-spacer--beat" />
+          ))}
           <div id="services">
             {services.map((service) => (
               <div key={service.id} id={service.id} data-journey-step={service.id} className="journey-spacer" />

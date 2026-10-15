@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Third-party photos: permission pending, never commit or deploy (see docs/assets.md)
+/assets/source/
+/public/visuals/

@@ -15,9 +15,10 @@ const smooth = (t: number) => t * t * (3 - 2 * t);
 // middle 60% of each gap is travel, the rest is rest.
 const travel = (t: number) => smooth(clamp01((t - 0.2) / 0.6));
 
-// A text block is fully visible at its own step and gone 0.42 steps away, so
-// neighbouring blocks dip through a blur rather than overlapping.
-const FADE_SPAN = 0.42;
+// Text is fully opaque within HOLD of its step and gone by FADE steps away:
+// opacity only, never blurred or moved, so it stays sharp at every position.
+const HOLD = 0.12;
+const FADE = 0.34;
 
 /**
  * One master ScrollTrigger spanning the pinned journey. It maps scroll
@@ -53,21 +54,13 @@ export function JourneyController({ children }: { children: React.ReactNode }) {
 
       const paint = () => {
         const { position, intro } = getJourney();
-        const reduced = reducedQuery.matches;
         blocks.forEach((block, i) => {
-          const d = position - i;
-          let o = clamp01(1 - Math.abs(d) / FADE_SPAN);
+          const d = Math.abs(position - i);
+          let o = 1 - smooth(clamp01((d - HOLD) / (FADE - HOLD)));
           // The hero copy waits for the intro to finish.
           if (i === 0 && intro !== "done") o = 0;
-          block.style.opacity = String(o);
+          block.style.opacity = o.toFixed(3);
           block.style.pointerEvents = o > 0.6 ? "auto" : "none";
-          if (reduced) {
-            block.style.filter = "";
-            block.style.transform = "";
-          } else {
-            block.style.filter = o < 1 ? `blur(${((1 - o) * 10).toFixed(2)}px)` : "";
-            block.style.transform = `translate3d(0, ${(-d * 28).toFixed(1)}px, 0)`;
-          }
         });
         if (progress) progress.style.transform = `scaleY(${last > 0 ? position / last : 0})`;
         if (cue) cue.style.opacity = intro === "done" && position < last - 0.5 ? "1" : "0";
@@ -77,15 +70,17 @@ export function JourneyController({ children }: { children: React.ReactNode }) {
         if (anchors.length < 2) return;
         const y = window.scrollY;
         let position = 0;
-        if (y >= anchors[last]) position = last;
+        let raw = 0;
+        if (y >= anchors[last]) position = raw = last;
         else if (y > anchors[0]) {
           let i = 0;
           while (i < last - 1 && y >= anchors[i + 1]) i++;
           const t = (y - anchors[i]) / Math.max(anchors[i + 1] - anchors[i], 1);
           // Reduced motion: no scrubbed travel, the step changes at the midpoint.
           position = i + (reducedQuery.matches ? Math.round(t) : travel(t));
+          raw = i + t;
         }
-        setJourneyPosition(position);
+        setJourneyPosition(position, raw);
         paint();
       };
 

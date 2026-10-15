@@ -4,6 +4,7 @@ The site does not launch until every **Gate** item is ticked.
 
 ## Gates
 
+- [ ] **Journey image permission.** All six Oscar Sky Park visualisations are `pending` (see `docs/assets.md`). Needs written permission from the rights holder (Ishwargehi and/or "NIRMIT", named in the image metadata), recorded in `src/data/visuals.ts` and `docs/assets.md`, with the credit wording they specify.
 - [ ] **Custom domain connected.** Point `www.mahadevfacilitymanagement.com` (and the apex domain, redirecting to `www`) at the new host, with HTTPS. Set `NEXT_PUBLIC_SITE_URL` to the final origin before building. Not done: needs hosting and DNS access.
 - [x] **Favicon added.** `src/app/favicon.ico`, `icon.png` and `apple-icon.png`, generated from the real logo.
 - [x] **No "Made with" tag.** No builder badge, no `generator` meta tag, and `poweredByHeader: false` removes the `X-Powered-By: Next.js` header (checked with `curl -I`). The Wix "Built with Interactive Studio" footer is gone with Wix.
@@ -20,6 +21,8 @@ The site does not launch until every **Gate** item is ticked.
 - [ ] WhatsApp number, if a WhatsApp link is wanted.
 - [ ] Contact form: yes or no, and where submissions go (Resend or Web3Forms).
 - [ ] Vector logo file.
+- [ ] The Oscar Sky Park photo you mentioned supplying (not found in the project).
+- [ ] Confirm the visualisations match the completed building closely enough to show.
 - [ ] Accessibility statement reviewed (same approval flag as the legal pages).
 
 ## Before switching DNS

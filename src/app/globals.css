@@ -176,14 +176,15 @@ body {
     transform: none;
   }
 
-  /* Hero entrance after the intro: masked line rise, then blur-fade. */
+  /* Hero entrance after the intro: masked line rise, then fade. Text is
+     never blurred. */
   .intro-done .hero-line > span {
     animation: line-rise 1100ms cubic-bezier(0.22, 1, 0.36, 1) both;
     animation-delay: calc(var(--i, 0) * 120ms);
   }
 
   .intro-done .hero-fade {
-    animation: blur-in 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: fade-in 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
     animation-delay: var(--d, 500ms);
   }
 }
@@ -216,16 +217,12 @@ body {
   }
 }
 
-@keyframes blur-in {
+@keyframes fade-in {
   from {
     opacity: 0;
-    filter: blur(8px);
-    transform: translate3d(0, 10px, 0);
   }
   to {
     opacity: 1;
-    filter: none;
-    transform: none;
   }
 }
 
@@ -262,13 +259,100 @@ body {
 }
 
 .js .journey-stage {
+  --visual-h: 100svh;
   position: sticky;
   top: 0;
   z-index: 0;
   height: 100svh;
   margin-bottom: -100svh;
   overflow: hidden;
-  background: #e9e3d8;
+  background: var(--color-ink);
+}
+
+/* Portrait screens: image on top, copy on solid ink below (no text over
+   the photo, and no awkward narrow crops of wide images). */
+@media (max-aspect-ratio: 1/1) {
+  .js .journey-stage {
+    --visual-h: clamp(34svh, calc(100svh - 27rem), 58svh);
+  }
+}
+
+.stage-visual {
+  display: none;
+}
+
+.js .stage-visual {
+  display: block;
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--visual-h);
+  overflow: hidden;
+}
+
+.stage-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+
+.stage-layer.is-active {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage-layer {
+    transition-duration: 250ms;
+  }
+}
+
+.stage-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--pos-wide, 50% 50%);
+}
+
+/* Same rule as TALL_VIEWPORT in PhotoScene, so both crop identically. */
+@media (max-aspect-ratio: 2/3) {
+  .stage-img {
+    object-position: var(--pos-tall, 50% 50%);
+  }
+}
+
+.stage-canvas {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.stage-canvas.is-ready {
+  opacity: 1;
+}
+
+/* Identifies every image as Oscar Sky Park; solid chip keeps it legible. */
+.journey-label {
+  position: absolute;
+  right: calc(max((100vw - 1440px) / 2, 0px) + 2.5rem);
+  bottom: clamp(1.25rem, 3vh, 2rem);
+  z-index: 2;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--radius-sm);
+  background: rgb(23 20 15 / 0.78);
+  color: var(--color-ivory);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+@media (max-aspect-ratio: 1/1) {
+  .journey-label {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    font-size: 0.6875rem;
+  }
 }
 
 /* Darkens only where text sits: bottom and left edges, plus the header band. */
@@ -322,9 +406,51 @@ body {
   padding-top: var(--header-h);
 }
 
-@media (max-width: 767px) {
+@media (max-aspect-ratio: 1/1) {
+  .js .stage-block,
   .js .stage-block--hero {
-    align-items: flex-end;
+    top: var(--visual-h);
+    align-items: flex-start;
+    padding: 1.5rem 0 1rem;
+  }
+
+  .js .journey-scrim {
+    height: var(--visual-h);
+    background:
+      linear-gradient(to top, rgb(23 20 15 / 1) 0%, rgb(23 20 15 / 0) 22%),
+      linear-gradient(to bottom, rgb(23 20 15 / 0.45) 0%, rgb(23 20 15 / 0) 22%);
+  }
+
+  .js .stage-backdrop::before {
+    display: none;
+  }
+
+  /* Short property captions sit in the middle of the copy area. */
+  .js .stage-block--caption {
+    align-items: center;
+    padding-bottom: 3rem;
+  }
+
+  /* Hero copy must fit below the image on phones. */
+  .js .stage-block--hero h1 {
+    margin-top: 0.75rem;
+    font-size: clamp(1.75rem, 7.4vw, 2.6rem);
+  }
+
+  .js .stage-block--hero .hero-fade.mt-6 {
+    margin-top: 0.875rem;
+    font-size: 1rem;
+  }
+
+  .js .stage-block--hero .hero-fade.mt-8 {
+    margin-top: 1.25rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .btn {
+    padding: 0 0.95rem;
+    font-size: 0.875rem;
   }
 }
 
@@ -343,6 +469,10 @@ body {
 
 .js .journey-spacer--hero {
   height: 100svh;
+}
+
+.js .journey-spacer--beat {
+  height: 120svh;
 }
 
 /* Thin story-progress line at the left edge of the text column. */
@@ -374,7 +504,7 @@ body {
   display: block;
   position: absolute;
   right: calc(max((100vw - 1440px) / 2, 0px) + 2.5rem);
-  bottom: clamp(1.75rem, 5vh, 3rem);
+  bottom: calc(clamp(1.25rem, 3vh, 2rem) + 2.25rem);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.16em;
